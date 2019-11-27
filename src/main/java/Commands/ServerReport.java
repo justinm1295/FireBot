@@ -25,7 +25,7 @@ public class ServerReport {
 
         EmbedBuilder serverReport = new EmbedBuilder();
 
-        serverReport.setTitle("Server Report " + Objects.requireNonNull(Objects.requireNonNull(FireBot.jda.getGuildById(149707514521321473L)).getRoleById(648340471344529408L)).getAsMention());
+        serverReport.setTitle("Server Report ");
         serverReport.setDescription("Received by FireBot");
         serverReport.setColor(Color.RED);
 
@@ -34,12 +34,14 @@ public class ServerReport {
         serverReport.addField("Report Reason", reportArgs[2], false);
 
         try {
-            Objects.requireNonNull(Objects.requireNonNull(FireBot.jda.getGuildById(149707514521321473L)).getTextChannelById(647655709969874955L)).sendMessage(serverReport.build()).queue();
+            Objects.requireNonNull(Objects.requireNonNull(FireBot.jda.getGuildById(149707514521321473L)).getTextChannelById(647655709969874955L)).sendMessage(
+                    Objects.requireNonNull(Objects.requireNonNull(FireBot.jda.getGuildById(149707514521321473L)).getRoleById(648340471344529408L)).getAsMention() + " New report received.\n" + serverReport.build()).queue();
+            event.getChannel().sendMessage("Report received and sent to the staff. A member of staff may reach out to you directly if necessary.").queue();
+
         } catch (NullPointerException npe) {
             npe.printStackTrace();
+            event.getChannel().sendMessage("Error sending report. Please contact Sniper Noob to report this issue.").queue();
         }
         serverReport.clear();
-
-        event.getChannel().sendMessage("Report received and sent to the staff. A member of staff may reach out to you directly if necessary.").queue();
     }
 }
