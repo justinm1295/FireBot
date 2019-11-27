@@ -1,6 +1,6 @@
 package EventManager;
 
-import Bot.SniperBot;
+import Bot.FireBot;
 import Commands.Info;
 import Commands.MemberCount;
 import Commands.ReportHelp;
@@ -25,7 +25,7 @@ public class EventManager extends ListenerAdapter {
             return;
         }
 
-        if (!message.getContentRaw().startsWith(SniperBot.prefix)) {
+        if (!message.getContentRaw().startsWith(FireBot.prefix)) {
             return;
         }
 
@@ -50,7 +50,7 @@ public class EventManager extends ListenerAdapter {
             return;
         }
 
-        if (!message.getContentRaw().startsWith(SniperBot.prefix)) {
+        if (!message.getContentRaw().startsWith(FireBot.prefix)) {
             return;
         }
 

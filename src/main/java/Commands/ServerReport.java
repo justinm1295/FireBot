@@ -1,6 +1,6 @@
 package Commands;
 
-import Bot.SniperBot;
+import Bot.FireBot;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
@@ -25,7 +25,7 @@ public class ServerReport {
 
         EmbedBuilder serverReport = new EmbedBuilder();
 
-        serverReport.setTitle("Server Report " + Objects.requireNonNull(Objects.requireNonNull(SniperBot.jda.getGuildById(149707514521321473L)).getRoleById(648340471344529408L)).getAsMention());
+        serverReport.setTitle("Server Report " + Objects.requireNonNull(Objects.requireNonNull(FireBot.jda.getGuildById(149707514521321473L)).getRoleById(648340471344529408L)).getAsMention());
         serverReport.setDescription("Received by FireBot");
         serverReport.setColor(Color.RED);
 
@@ -34,7 +34,7 @@ public class ServerReport {
         serverReport.addField("Report Reason", reportArgs[2], false);
 
         try {
-            Objects.requireNonNull(Objects.requireNonNull(SniperBot.jda.getGuildById(149707514521321473L)).getTextChannelById(647655709969874955L)).sendMessage(serverReport.build()).queue();
+            Objects.requireNonNull(Objects.requireNonNull(FireBot.jda.getGuildById(149707514521321473L)).getTextChannelById(647655709969874955L)).sendMessage(serverReport.build()).queue();
         } catch (NullPointerException npe) {
             npe.printStackTrace();
         }
