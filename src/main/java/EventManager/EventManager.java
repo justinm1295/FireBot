@@ -51,14 +51,14 @@ public class EventManager extends ListenerAdapter {
             return;
         }
 
-        if (!message.getContentRaw().startsWith(FireBot.prefix)) {
-            return;
-        }
-
         try {
             FireBot.databaseWriter.insertMessage(event);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+
+        if (!message.getContentRaw().startsWith(FireBot.prefix)) {
+            return;
         }
 
         String[] args = message.getContentRaw().split("\\s+");
