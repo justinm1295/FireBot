@@ -40,7 +40,6 @@ public class DatabaseWriter {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
         try {
             connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO Messages (date, userName, userID, userDiscriminator, content) VALUES (?, ?, ?, ?, ?)");
@@ -50,14 +49,11 @@ public class DatabaseWriter {
             preparedStatement.setString(4, event.getAuthor().getDiscriminator());
             preparedStatement.setString(5, event.getMessage().getContentRaw());
 
-            resultSet = preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Failed to insert message.");
         } finally {
-            if (resultSet != null && !resultSet.isClosed()) {
-                resultSet.close();
-            }
             if (preparedStatement != null && !preparedStatement.isClosed()) {
                 preparedStatement.close();
             }
