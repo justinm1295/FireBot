@@ -14,6 +14,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import java.sql.SQLException;
 
 public class EventManager extends ListenerAdapter {
 
@@ -52,6 +53,12 @@ public class EventManager extends ListenerAdapter {
 
         if (!message.getContentRaw().startsWith(FireBot.prefix)) {
             return;
+        }
+
+        try {
+            FireBot.databaseWriter.insertMessage(event);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         String[] args = message.getContentRaw().split("\\s+");
