@@ -55,6 +55,7 @@ public class EventManager extends ListenerAdapter {
             FireBot.databaseWriter.insertMessage(event);
         } catch (SQLException e) {
             e.printStackTrace();
+            FireBot.botLogger.logError("[EventManager.onMessageReceived] - Failed to insert message into database.");
         }
 
         if (!message.getContentRaw().startsWith(FireBot.prefix)) {

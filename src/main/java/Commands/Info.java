@@ -1,5 +1,6 @@
 package Commands;
 
+import Bot.FireBot;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -23,6 +24,7 @@ public class Info {
             info.setFooter("Created by Sniper Noob", ownerUrl);
         } catch (NullPointerException npe) {
             npe.printStackTrace();
+            FireBot.botLogger.logError("[Info.sendInfo] - Unable to retrieve logo for footer.");
         }
 
         event.getChannel().sendMessage(info.build()).queue();

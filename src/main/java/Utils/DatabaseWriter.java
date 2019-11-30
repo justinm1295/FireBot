@@ -1,11 +1,11 @@
 package Utils;
 
+import Bot.FireBot;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -26,7 +26,8 @@ public class DatabaseWriter {
             dbHost = resourceBundle.getString("host");
             dbDatabase = resourceBundle.getString("database");
         } catch (Exception e) {
-            System.out.println("Cannot get database config values.");
+            e.printStackTrace();
+            FireBot.botLogger.logError("[DatabaseWriter] - Cannot get database config values.");
             System.exit(0);
         }
     }
@@ -52,7 +53,7 @@ public class DatabaseWriter {
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Failed to insert message.");
+            FireBot.botLogger.logError("[DatabaseWriter.insertMessage] - Failed to insert message.");
         } finally {
             if (preparedStatement != null && !preparedStatement.isClosed()) {
                 preparedStatement.close();
