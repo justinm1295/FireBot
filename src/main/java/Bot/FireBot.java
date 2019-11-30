@@ -28,12 +28,13 @@ public class FireBot {
             System.exit(0);
         }
 
-        databaseWriter = new DatabaseWriter();
-        botLogger = new BotLogger();
-
         jda = new JDABuilder(token).addEventListeners(new EventManager()).build();
         jda.awaitReady();
         jda.getPresence().setActivity(Activity.watching("for reports."));
+
+        botLogger = new BotLogger();
+        databaseWriter = new DatabaseWriter();
+
         botLogger.logError("[FireBot.main] - New bot session started.");
     }
 }
