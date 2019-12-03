@@ -3,6 +3,7 @@ package Bot;
 import EventManager.EventManager;
 import Utils.BotLogger;
 import Utils.DatabaseWriter;
+import Utils.TF2ServerInterface;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -16,6 +17,7 @@ public class FireBot {
     public static String prefix = "!";
     public static DatabaseWriter databaseWriter;
     public static BotLogger botLogger;
+    public static TF2ServerInterface tf2ServerInterface;
 
     public static void main(String[] args) throws LoginException, InterruptedException {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("config");
@@ -34,6 +36,7 @@ public class FireBot {
 
         botLogger = new BotLogger();
         databaseWriter = new DatabaseWriter();
+        tf2ServerInterface = new TF2ServerInterface();
 
         botLogger.logError("[FireBot.main] - New bot session started.");
     }

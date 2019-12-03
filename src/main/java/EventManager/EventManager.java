@@ -6,6 +6,7 @@ import Commands.MemberCount;
 import Commands.ReportHelp;
 import Commands.ServerReport;
 import Commands.Staff;
+import com.github.koraktor.steamcondenser.exceptions.SteamCondenserException;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -15,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.sql.SQLException;
+import java.util.concurrent.TimeoutException;
 
 public class EventManager extends ListenerAdapter {
 
@@ -84,6 +86,16 @@ public class EventManager extends ListenerAdapter {
         if (args[0].equals("!staff")) {
             event.getChannel().sendTyping().complete();
             Staff.sendStaffInfo(event);
+        }
+
+        if (args[0].equals("!server")) {
+            event.getChannel().sendTyping().complete();
+            try {
+                FireBot.tf2ServerInterface.sendServerInfo(event);
+            } catch (Exception e) {
+                e.printStackTrace();
+                FireBot.botLogger.logError("[EventManager.onMessageReceived] - Failed to get TF2 server info.");
+            }
         }
     }
 }
