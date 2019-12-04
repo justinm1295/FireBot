@@ -1,14 +1,15 @@
 package EventManager;
 
 import Bot.FireBot;
+import Commands.CommandList;
 import Commands.Info;
 import Commands.MemberCount;
+import Commands.Ping;
 import Commands.ReportHelp;
-import Commands.ServerReport;
+import Commands.Report;
+import Commands.Server;
 import Commands.Staff;
-import com.github.koraktor.steamcondenser.exceptions.SteamCondenserException;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -16,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.sql.SQLException;
-import java.util.concurrent.TimeoutException;
 
 public class EventManager extends ListenerAdapter {
 
@@ -41,7 +41,7 @@ public class EventManager extends ListenerAdapter {
 
         if (args[0].equals("!report")) {
             event.getChannel().sendTyping().complete();
-            ServerReport.sendServerReport(event);
+            Report.sendReport(event);
         }
     }
 
@@ -67,10 +67,8 @@ public class EventManager extends ListenerAdapter {
         String[] args = message.getContentRaw().split("\\s+");
 
         if (args[0].equals("!ping")) {
-            MessageChannel channel = message.getChannel();
-            long time = System.currentTimeMillis();
-            channel.sendMessage("Pong!")
-                    .queue(response -> response.editMessageFormat("Pong: %d ms", System.currentTimeMillis() - time).queue());
+            event.getChannel().sendTyping().complete();
+            Ping.sendPing(event);
         }
 
         if (args[0].equals("!info")) {
@@ -85,17 +83,17 @@ public class EventManager extends ListenerAdapter {
 
         if (args[0].equals("!staff")) {
             event.getChannel().sendTyping().complete();
-            Staff.sendStaffInfo(event);
+            Staff.sendStaff(event);
         }
 
         if (args[0].equals("!server")) {
             event.getChannel().sendTyping().complete();
-            try {
-                FireBot.tf2ServerInterface.sendServerInfo(event);
-            } catch (Exception e) {
-                e.printStackTrace();
-                FireBot.botLogger.logError("[EventManager.onMessageReceived] - Failed to get TF2 server info.");
-            }
+            Server.sendServer(event);
+        }
+
+        if (args[0].equals("!commands")) {
+            event.getChannel().sendTyping().complete();
+            CommandList.sendCommandList(event);
         }
     }
 }

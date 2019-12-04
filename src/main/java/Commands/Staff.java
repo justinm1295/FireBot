@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Staff {
 
-    public static void sendStaffInfo(MessageReceivedEvent event) {
+    public static void sendStaff(MessageReceivedEvent event) {
         List<Member> headAdmins = event.getGuild().getMembersWithRoles(event.getGuild().getRolesByName("Head Administrators", false));
         List<Member> seniorAdmins = event.getGuild().getMembersWithRoles(event.getGuild().getRolesByName("Senior Administrators", false));
         List<Member> admins = event.getGuild().getMembersWithRoles(event.getGuild().getRolesByName("Administrators", false));

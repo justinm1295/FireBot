@@ -8,9 +8,9 @@ import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import java.awt.Color;
 import java.util.Objects;
 
-public class ServerReport {
+public class Report {
 
-    public static void sendServerReport(PrivateMessageReceivedEvent event) {
+    public static void sendReport(PrivateMessageReceivedEvent event) {
         Message message = event.getMessage();
 
         String reportFormatMessage = "Invalid format, please use the format below:" +
