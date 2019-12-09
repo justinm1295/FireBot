@@ -38,6 +38,6 @@ public class FireBot {
         databaseWriter = new DatabaseWriter();
         tf2ServerInterface = new TF2ServerInterface();
 
-        botLogger.logError("[FireBot.main] - New bot session started.");
+        botLogger.logMessage("[FireBot.main] - New bot session started.");
     }
 }

@@ -20,7 +20,16 @@ public class BotLogger {
 
     public void logError(String errorMessage) {
         try {
-            Objects.requireNonNull(FireBot.jda.getTextChannelById(botLogChannel)).sendMessage(errorMessage).queue();
+            Objects.requireNonNull(FireBot.jda.getTextChannelById(botLogChannel)).sendMessage(String.format("ERROR: %s", errorMessage)).queue();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Couldn't find logging channel.");
+        }
+    }
+
+    public void logMessage(String message) {
+        try {
+            Objects.requireNonNull(FireBot.jda.getTextChannelById(botLogChannel)).sendMessage(String.format("LOG: %s", message)).queue();
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Couldn't find logging channel.");
