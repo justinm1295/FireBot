@@ -46,7 +46,6 @@ public class Report {
             // Send embed.
             Objects.requireNonNull(Objects.requireNonNull(FireBot.jda.getGuildById(149707514521321473L)).getTextChannelById(647655709969874955L)).sendMessage(serverReport.build()).queue(
                     response -> FireBot.serverReports.put(response.getIdLong(), event.getAuthor().getIdLong()));
-            System.out.println(FireBot.serverReports.keySet());
             // Notify sender.
             event.getChannel().sendMessage(serverReport.build()).queue();
             event.getChannel().sendMessage(String.format("Report [%s] received and sent to the staff. You will receive a notification when a staff member claims your report.", hash)).queue();
@@ -57,6 +56,7 @@ public class Report {
             event.getChannel().sendMessage("Error sending report. Please contact Sniper Noob to report this issue.").queue();
         }
         serverReport.clear();
+        System.out.println(FireBot.serverReports.keySet());
     }
 
     public static void claimReport(GuildMessageReactionAddEvent event) {
