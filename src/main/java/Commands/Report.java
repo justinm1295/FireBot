@@ -59,8 +59,7 @@ public class Report {
             event.getChannel().sendMessage("Error sending report. Please contact Sniper Noob to report this issue.").queue();
         }
         serverReport.clear();
-        System.out.println(FireBot.serverReports.keySet());
-
+        System.out.println(FireBot.serverReports.keySet().size());
     }
 
     public static void claimReport(GuildMessageReactionAddEvent event) {
@@ -70,6 +69,7 @@ public class Report {
         String hash = null;
 
         try {
+            System.out.println(String.format("Report title: %s", Objects.requireNonNull(reportMessage).getEmbeds().get(0).getTitle()));
             hash = Objects.requireNonNull(Objects.requireNonNull(reportMessage).getEmbeds().get(0).getTitle()).substring(Objects.requireNonNull(reportMessage.getEmbeds().get(0).getTitle()).length() - 10);
         } catch (NullPointerException npe) {
             npe.printStackTrace();
@@ -85,7 +85,5 @@ public class Report {
             npe.printStackTrace();
             FireBot.botLogger.logError(String.format("[Report.claimReport] - Reporter of report %s no longer visible to bot.", hash));
         }
-
-
     }
 }
