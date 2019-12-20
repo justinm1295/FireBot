@@ -65,7 +65,7 @@ public class Report {
     public static void claimReport(GuildMessageReactionAddEvent event) {
         long reporterId = FireBot.reportMap.getReport(event.getMessageIdLong());
         User reporter = FireBot.jda.getUserById(reporterId);
-        Message reportMessage = event.getChannel().getHistory().getMessageById(event.getMessageIdLong());
+        Message reportMessage = event.getChannel().retrieveMessageById(event.getMessageIdLong()).complete();
         String hash;
 
         try {
