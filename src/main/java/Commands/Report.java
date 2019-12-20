@@ -69,6 +69,7 @@ public class Report {
         String hash;
 
         try {
+            System.out.println(String.format("Message Report: %S", Objects.requireNonNull(reportMessage).getAuthor().getName()));
             System.out.println(String.format("Report title: %s", Objects.requireNonNull(reportMessage).getEmbeds().get(0).getTitle()));
             hash = Objects.requireNonNull(Objects.requireNonNull(reportMessage).getEmbeds().get(0).getTitle()).substring(Objects.requireNonNull(reportMessage.getEmbeds().get(0).getTitle()).length() - 10);
         } catch (NullPointerException npe) {
