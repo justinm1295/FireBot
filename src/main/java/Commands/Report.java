@@ -45,7 +45,10 @@ public class Report {
                     Objects.requireNonNull(Objects.requireNonNull(FireBot.jda.getGuildById(149707514521321473L)).getRoleById(648340471344529408L)).getAsMention() + "New report received.").queue();
             // Send embed.
             Objects.requireNonNull(Objects.requireNonNull(FireBot.jda.getGuildById(149707514521321473L)).getTextChannelById(647655709969874955L)).sendMessage(serverReport.build()).queue(
-                    response -> System.out.println(response.getIdLong()));
+                    response -> {
+                        System.out.println(response.getIdLong());
+                        FireBot.serverReports.put(response.getIdLong(), event.getAuthor().getIdLong());
+                    });
             // Notify sender.
             event.getChannel().sendMessage(serverReport.build()).queue();
             event.getChannel().sendMessage(String.format("Report [%s] received and sent to the staff. You will receive a notification when a staff member claims your report.", hash)).queue();
@@ -57,6 +60,7 @@ public class Report {
         }
         serverReport.clear();
         System.out.println(FireBot.serverReports.keySet());
+
     }
 
     public static void claimReport(GuildMessageReactionAddEvent event) {
