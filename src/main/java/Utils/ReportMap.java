@@ -11,18 +11,18 @@ public class ReportMap {
     }
 
     public void addReport(long messageId, long userId) {
-        reports.put(messageId, userId);
+        this.reports.put(messageId, userId);
     }
 
     public long getReport(long messageId) {
-        if (reports.get(messageId) != null) {
-            return reports.get(messageId);
+        if (this.reports.get(messageId) != null) {
+            return this.reports.get(messageId);
         } else {
             return 0L;
         }
     }
 
     public int getReportSize() {
-        return reports.size();
+        return this.reports.size();
     }
 }

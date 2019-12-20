@@ -48,6 +48,7 @@ public class Report {
                     response -> {
                         System.out.println(response.getIdLong());
                         FireBot.reportMap.addReport(response.getIdLong(), event.getAuthor().getIdLong());
+                        System.out.println(FireBot.reportMap.getReportSize());
                     });
             // Notify sender.
             event.getChannel().sendMessage(serverReport.build()).queue();
@@ -59,7 +60,6 @@ public class Report {
             event.getChannel().sendMessage("Error sending report. Please contact Sniper Noob to report this issue.").queue();
         }
         serverReport.clear();
-        System.out.println(FireBot.reportMap.getReportSize());
     }
 
     public static void claimReport(GuildMessageReactionAddEvent event) {
