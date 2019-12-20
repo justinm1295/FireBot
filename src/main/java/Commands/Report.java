@@ -31,7 +31,7 @@ public class Report {
 
         EmbedBuilder serverReport = new EmbedBuilder();
 
-        serverReport.setTitle(String.format("Server Report [%s]", hash));
+        serverReport.setTitle(String.format("Server Report `[%s]`", hash));
         serverReport.setDescription("Received by FireBot");
         serverReport.setColor(Color.RED);
 
@@ -52,11 +52,11 @@ public class Report {
                     });
             // Notify sender.
             event.getChannel().sendMessage(serverReport.build()).queue();
-            event.getChannel().sendMessage(String.format("Report [%s] received and sent to the staff. You will receive a notification when a staff member claims your report.", hash)).queue();
+            event.getChannel().sendMessage(String.format("Report `[%s]` received and sent to the staff. You will receive a notification when a staff member claims your report.", hash)).queue();
 
         } catch (NullPointerException npe) {
             npe.printStackTrace();
-            FireBot.botLogger.logError(String.format("[ServerReport.sendServerReport] - Failed to generate report sent by %s.", event.getAuthor().getAsMention()));
+            FireBot.botLogger.logError(String.format("[ServerReport.sendServerReport] - Failed to generate report `[%s]` sent by %s.", hash, event.getAuthor().getAsMention()));
             event.getChannel().sendMessage("Error sending report. Please contact Sniper Noob to report this issue.").queue();
         }
         serverReport.clear();
@@ -69,9 +69,6 @@ public class Report {
         String hash;
 
         try {
-            System.out.println(String.format("Message id: %s", Objects.requireNonNull(reportMessage).getId()));
-            System.out.println(String.format("Message Report: %S", Objects.requireNonNull(reportMessage).getAuthor().getName()));
-            System.out.println(String.format("Report title: %s", Objects.requireNonNull(reportMessage).getEmbeds().get(0).getTitle()));
             hash = Objects.requireNonNull(Objects.requireNonNull(reportMessage).getEmbeds().get(0).getTitle()).substring(Objects.requireNonNull(reportMessage.getEmbeds().get(0).getTitle()).length() - 10);
         } catch (NullPointerException npe) {
             npe.printStackTrace();
@@ -81,11 +78,11 @@ public class Report {
 
         try {
             PrivateChannel privateChannel = Objects.requireNonNull(reporter).openPrivateChannel().complete();
-            privateChannel.sendMessage(String.format("Report %s has been claimed by %s. They will contact you directly if more information is required.", hash, event.getMember().getAsMention())).queue();
-            event.getChannel().sendMessage(String.format("Message %s has been claimed by %s.", hash, event.getMember().getAsMention())).queue();
+            privateChannel.sendMessage(String.format("Report `%s` has been claimed by %s. They will contact you directly if more information is required.", hash, event.getMember().getAsMention())).queue();
+            event.getChannel().sendMessage(String.format("Report `%s` has been claimed by %s.", hash, event.getMember().getAsMention())).queue();
         } catch (NullPointerException npe) {
             npe.printStackTrace();
-            FireBot.botLogger.logError(String.format("[Report.claimReport] - Reporter of report %s no longer visible to bot.", hash));
+            FireBot.botLogger.logError(String.format("[Report.claimReport] - Reporter of report `%s` no longer visible to bot.", hash));
         }
     }
 }
