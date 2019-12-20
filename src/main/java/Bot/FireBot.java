@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 
 import javax.security.auth.login.LoginException;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class FireBot {
@@ -18,6 +19,7 @@ public class FireBot {
     public static DatabaseWriter databaseWriter;
     public static BotLogger botLogger;
     public static TF2ServerInterface tf2ServerInterface;
+    public static HashMap<Long, Long> serverReports = new HashMap<>();
 
     public static void main(String[] args) throws LoginException, InterruptedException {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("config");
