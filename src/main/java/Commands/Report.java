@@ -45,11 +45,8 @@ public class Report {
                     Objects.requireNonNull(Objects.requireNonNull(FireBot.jda.getGuildById(149707514521321473L)).getRoleById(648340471344529408L)).getAsMention() + "New report received.").queue();
             // Send embed.
             Objects.requireNonNull(Objects.requireNonNull(FireBot.jda.getGuildById(149707514521321473L)).getTextChannelById(647655709969874955L)).sendMessage(serverReport.build()).queue(
-                    response -> {
-                        System.out.println(response.getIdLong());
-                        FireBot.reportMap.addReport(response.getIdLong(), event.getAuthor().getIdLong());
-                        System.out.println(FireBot.reportMap.getReportSize());
-                    });
+                    response -> FireBot.reportMap.addReport(response.getIdLong(), event.getAuthor().getIdLong()));
+
             // Notify sender.
             event.getChannel().sendMessage(serverReport.build()).queue();
             event.getChannel().sendMessage(String.format("Report `[%s]` received and sent to the staff. You will receive a notification when a staff member claims your report.", hash)).queue();
@@ -69,7 +66,7 @@ public class Report {
         String hash;
 
         try {
-            hash = Objects.requireNonNull(Objects.requireNonNull(reportMessage).getEmbeds().get(0).getTitle()).substring(Objects.requireNonNull(reportMessage.getEmbeds().get(0).getTitle()).length() - 10);
+            hash = Objects.requireNonNull(Objects.requireNonNull(reportMessage).getEmbeds().get(0).getTitle()).substring(Objects.requireNonNull(reportMessage.getEmbeds().get(0).getTitle()).length() - 11, Objects.requireNonNull(reportMessage.getEmbeds().get(0).getTitle()).length() - 1);
         } catch (NullPointerException npe) {
             npe.printStackTrace();
             FireBot.botLogger.logError("[Report.claimReport] - Unable to get hash from report.");
