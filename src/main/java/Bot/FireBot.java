@@ -19,7 +19,7 @@ public class FireBot {
     public static DatabaseWriter databaseWriter;
     public static BotLogger botLogger;
     public static TF2ServerInterface tf2ServerInterface;
-    public static HashMap<Long, Long> serverReports;
+    public static HashMap<Long, Long> serverReports = new HashMap<>();
 
     public static void main(String[] args) throws LoginException, InterruptedException {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("config");
@@ -36,7 +36,7 @@ public class FireBot {
         jda.awaitReady();
         jda.getPresence().setActivity(Activity.watching("for reports."));
 
-        serverReports = new HashMap<>();
+        serverReports.put(123L, 321L);
         botLogger = new BotLogger();
         databaseWriter = new DatabaseWriter();
         tf2ServerInterface = new TF2ServerInterface();
