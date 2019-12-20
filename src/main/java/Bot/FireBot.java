@@ -3,13 +3,13 @@ package Bot;
 import EventManager.EventManager;
 import Utils.BotLogger;
 import Utils.DatabaseWriter;
+import Utils.ReportMap;
 import Utils.TF2ServerInterface;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 
 import javax.security.auth.login.LoginException;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class FireBot {
@@ -19,7 +19,7 @@ public class FireBot {
     public static DatabaseWriter databaseWriter;
     public static BotLogger botLogger;
     public static TF2ServerInterface tf2ServerInterface;
-    public static HashMap<Long, Long> serverReports = new HashMap<>();
+    public static ReportMap reportMap;
 
     public static void main(String[] args) throws LoginException, InterruptedException {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("config");
@@ -36,7 +36,7 @@ public class FireBot {
         jda.awaitReady();
         jda.getPresence().setActivity(Activity.watching("for reports."));
 
-        serverReports.put(123L, 321L);
+        reportMap = new ReportMap();
         botLogger = new BotLogger();
         databaseWriter = new DatabaseWriter();
         tf2ServerInterface = new TF2ServerInterface();

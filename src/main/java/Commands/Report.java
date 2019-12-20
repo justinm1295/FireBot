@@ -47,7 +47,7 @@ public class Report {
             Objects.requireNonNull(Objects.requireNonNull(FireBot.jda.getGuildById(149707514521321473L)).getTextChannelById(647655709969874955L)).sendMessage(serverReport.build()).queue(
                     response -> {
                         System.out.println(response.getIdLong());
-                        FireBot.serverReports.put(response.getIdLong(), event.getAuthor().getIdLong());
+                        FireBot.reportMap.addReport(response.getIdLong(), event.getAuthor().getIdLong());
                     });
             // Notify sender.
             event.getChannel().sendMessage(serverReport.build()).queue();
@@ -59,14 +59,14 @@ public class Report {
             event.getChannel().sendMessage("Error sending report. Please contact Sniper Noob to report this issue.").queue();
         }
         serverReport.clear();
-        System.out.println(FireBot.serverReports.keySet().size());
+        System.out.println(FireBot.reportMap.getReportSize());
     }
 
     public static void claimReport(GuildMessageReactionAddEvent event) {
-        long reporterId = FireBot.serverReports.get(event.getMessageIdLong());
+        long reporterId = FireBot.reportMap.getReport(event.getMessageIdLong());
         User reporter = FireBot.jda.getUserById(reporterId);
         Message reportMessage = event.getChannel().getHistory().getMessageById(event.getMessageIdLong());
-        String hash = null;
+        String hash;
 
         try {
             System.out.println(String.format("Report title: %s", Objects.requireNonNull(reportMessage).getEmbeds().get(0).getTitle()));

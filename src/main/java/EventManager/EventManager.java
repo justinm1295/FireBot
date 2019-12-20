@@ -26,8 +26,8 @@ public class EventManager extends ListenerAdapter {
     @Override
     public void onGuildMessageReactionAdd(@Nonnull GuildMessageReactionAddEvent event) {
         System.out.println(event.getReactionEmote().getEmoji());
-        System.out.println(FireBot.serverReports.get(event.getMessageIdLong()));
-        if (FireBot.serverReports.get(event.getMessageIdLong()) != null && event.getReactionEmote().getEmoji().equals("✅")) {
+        System.out.println(FireBot.reportMap.getReport(event.getMessageIdLong()));
+        if (FireBot.reportMap.getReport(event.getMessageIdLong()) != 0L && event.getReactionEmote().getEmoji().equals("✅")) {
             System.out.println(String.format("Triggering Claim. Message %s", event.getMessageIdLong()));
             event.getChannel().sendTyping().complete();
             Report.claimReport(event);
