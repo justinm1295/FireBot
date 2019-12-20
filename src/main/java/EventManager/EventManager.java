@@ -25,7 +25,7 @@ public class EventManager extends ListenerAdapter {
 
     @Override
     public void onGuildMessageReactionAdd(@Nonnull GuildMessageReactionAddEvent event) {
-        if (FireBot.serverReports.get(event.getMessageIdLong()) != null && event.getReactionEmote().getName().equals("white_check_mark")) {
+        if (FireBot.serverReports.get(event.getMessageIdLong()) != null && event.getReactionEmote().getName().equals(":white_check_mark:")) {
             event.getChannel().sendTyping().complete();
             Report.claimReport(event);
         }
