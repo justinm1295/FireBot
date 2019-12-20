@@ -70,7 +70,7 @@ public class Report {
         String hash = null;
 
         try {
-            hash = Objects.requireNonNull(Objects.requireNonNull(reportMessage).getEmbeds().get(0).getTitle()).substring(14, 23);
+            hash = Objects.requireNonNull(Objects.requireNonNull(reportMessage).getEmbeds().get(0).getTitle()).substring(Objects.requireNonNull(reportMessage.getEmbeds().get(0).getTitle()).length() - 10);
         } catch (NullPointerException npe) {
             npe.printStackTrace();
             FireBot.botLogger.logError("[Report.claimReport] - Unable to get hash from report.");
