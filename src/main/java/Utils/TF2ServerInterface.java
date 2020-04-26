@@ -60,7 +60,6 @@ public class TF2ServerInterface {
         try {
             SourceServer server = new SourceServer(ip, port);
             server.rconAuth(authKey);
-            server.initialize();
             String result = server.rconExec("sm_reloadadmins");
             server.disconnect();
             return result;

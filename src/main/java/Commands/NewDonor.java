@@ -86,9 +86,9 @@ public class NewDonor {
 
         String reload = FireBot.tf2ServerInterface.reloadAdmins();
 
-        System.out.println(reload);
-
         event.getChannel().sendTyping().complete();
         event.getChannel().sendMessage(donor.build()).queue();
+
+        event.getChannel().sendMessage(String.format("```%s```", reload)).queue();
     }
 }
