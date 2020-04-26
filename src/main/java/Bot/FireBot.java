@@ -3,7 +3,9 @@ package Bot;
 import EventManager.EventManager;
 import Utils.BotLogger;
 import Utils.DatabaseWriter;
+import Utils.FPDatabaseWriter;
 import Utils.ReportMap;
+import Utils.SteamAPIClient;
 import Utils.TF2ServerInterface;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -17,9 +19,11 @@ public class FireBot {
     public static JDA jda;
     public static String prefix = "!";
     public static DatabaseWriter databaseWriter;
+    public static FPDatabaseWriter fpDatabaseWriter;
     public static BotLogger botLogger;
     public static TF2ServerInterface tf2ServerInterface;
     public static ReportMap reportMap;
+    public static SteamAPIClient steamAPIClient;
 
     public static void main(String[] args) throws LoginException, InterruptedException {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("config");
@@ -39,7 +43,9 @@ public class FireBot {
         reportMap = new ReportMap();
         botLogger = new BotLogger();
         databaseWriter = new DatabaseWriter();
+        fpDatabaseWriter = new FPDatabaseWriter();
         tf2ServerInterface = new TF2ServerInterface();
+        steamAPIClient = new SteamAPIClient();
 
         botLogger.logMessage("[FireBot.main] - New bot session started.");
     }

@@ -4,6 +4,7 @@ import Bot.FireBot;
 import Commands.CommandList;
 import Commands.Info;
 import Commands.MemberCount;
+import Commands.NewDonor;
 import Commands.Ping;
 import Commands.ReportHelp;
 import Commands.Report;
@@ -83,33 +84,31 @@ public class EventManager extends ListenerAdapter {
         String[] args = message.getContentRaw().split("\\s+");
 
         if (args[0].equals("!ping")) {
-            event.getChannel().sendTyping().complete();
             Ping.sendPing(event);
         }
 
         if (args[0].equals("!info")) {
-            event.getChannel().sendTyping().complete();
             Info.sendInfo(event);
         }
 
         if (args[0].equals("!members")) {
-            event.getChannel().sendTyping().complete();
             MemberCount.sendMemberCount(event);
         }
 
         if (args[0].equals("!staff")) {
-            event.getChannel().sendTyping().complete();
             Staff.sendStaff(event);
         }
 
         if (args[0].equals("!server")) {
-            event.getChannel().sendTyping().complete();
             Server.sendServer(event);
         }
 
         if (args[0].equals("!commands")) {
-            event.getChannel().sendTyping().complete();
             CommandList.sendCommandList(event);
+        }
+
+        if (args[0].equals("!newDonor")) {
+            NewDonor.newDonor(event);
         }
     }
 }

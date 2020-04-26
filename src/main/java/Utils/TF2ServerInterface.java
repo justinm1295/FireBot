@@ -43,4 +43,19 @@ public class TF2ServerInterface {
 
         return null;
     }
+
+    public String reloadAdmins() {
+        try {
+            SourceServer server = new SourceServer(ip, port);
+            server.initialize();
+            String result = server.rconExec("sm_reloadadmins");
+            server.disconnect();
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            FireBot.botLogger.logError("[TF2ServerInterface.reloadAdmins] - Error reloading admins.");
+        }
+
+        return null;
+    }
 }
