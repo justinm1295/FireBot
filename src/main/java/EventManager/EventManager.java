@@ -70,7 +70,6 @@ public class EventManager extends ListenerAdapter {
         }
 
         try {
-            System.out.println(String.format("Storing message: %s", event.getMessage().getContentRaw()));
             FireBot.databaseWriter.insertMessage(event);
         } catch (SQLException e) {
             e.printStackTrace();

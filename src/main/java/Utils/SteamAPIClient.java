@@ -40,7 +40,6 @@ public class SteamAPIClient {
                 FireBot.botLogger.logError(String.format("[SteamAPIClient.getSteamInfo] - Failed to get Steam info, got %s from server.", response.statusCode()));
                 return null;
             }
-            System.out.println(responseBody.toString(4));
             responseBody = responseBody.getJSONObject("response").getJSONArray("players").getJSONObject(0);
             result.add(convertId(responseBody.getLong("steamid")));
             result.add(responseBody.getString("personaname"));

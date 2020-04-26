@@ -6,11 +6,13 @@ import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.awt.Color;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 public class TF2ServerInterface {
 
     private String ip;
     private int port;
+    private String authKey;
 
     public TF2ServerInterface() {
         this.ip = "66.55.70.58";
@@ -45,8 +47,19 @@ public class TF2ServerInterface {
     }
 
     public String reloadAdmins() {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("config");
+
+        try {
+            authKey = resourceBundle.getString("RCONAuthKey");
+        } catch (Exception e) {
+            e.printStackTrace();
+            FireBot.botLogger.logError("[TF2ServerInterface] - Cannot get RCONAuthKey.");
+            return null;
+        }
+
         try {
             SourceServer server = new SourceServer(ip, port);
+            server.rconAuth(authKey);
             server.initialize();
             String result = server.rconExec("sm_reloadadmins");
             server.disconnect();
