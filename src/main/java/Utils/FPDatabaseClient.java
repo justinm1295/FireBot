@@ -87,7 +87,7 @@ public class FPDatabaseClient {
             resultSet.beforeFirst();
             result.append("\n```");
             while (resultSet.next()) {
-                Date date = new Date(resultSet.getLong("expires"));
+                Date date = new Date(resultSet.getLong("expires") * 1000);
                 String name = resultSet.getString("name");
                 String steamId = resultSet.getString("steamid");
                 String expirationDate = dateFormat.format(date);
