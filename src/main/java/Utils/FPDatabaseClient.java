@@ -2,17 +2,17 @@ package Utils;
 
 import Bot.FireBot;
 import com.mysql.cj.jdbc.MysqlDataSource;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class FPDatabaseWriter {
+public class FPDatabaseClient {
 
     private String dbUser;
     private String dbPassword;
@@ -20,7 +20,9 @@ public class FPDatabaseWriter {
     private String dbDatabase;
     private int dbPort;
 
-    public FPDatabaseWriter() {
+    private DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+
+    public FPDatabaseClient() {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("config");
         try {
             dbUser = resourceBundle.getString("FPuser");
@@ -57,6 +59,48 @@ public class FPDatabaseWriter {
         } catch (Exception e) {
             e.printStackTrace();
             FireBot.botLogger.logError("[FPDatabaseWriter.insertDonor] - Failed to insert donor.");
+        } finally {
+            if (preparedStatement != null && !preparedStatement.isClosed()) {
+                preparedStatement.close();
+            }
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        }
+    }
+
+    public String getDonorList() throws SQLException {
+        MysqlDataSource dataSource = new MysqlDataSource();
+        dataSource.setUser(dbUser);
+        dataSource.setPassword(dbPassword);
+        dataSource.setServerName(dbHost);
+        dataSource.setDatabaseName(dbDatabase);
+
+        StringBuilder result = new StringBuilder("```Name\tSteamID32\tExpiration Date\tType```");
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT name, steamid, expires, donation_type FROM Sales");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.beforeFirst();
+            result.append("\n```");
+            while (resultSet.next()) {
+                Date date = new Date(resultSet.getLong("expires"));
+                String name = resultSet.getString("name");
+                String steamId = resultSet.getString("steamid");
+                String expirationDate = dateFormat.format(date);
+                String donationType = resultSet.getString("donation_type");
+                result.append(String.format("\n%s\t%s\t%s\t%s", name, steamId, expirationDate, donationType));
+            }
+            result.append("```");
+            return result.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            FireBot.botLogger.logError("[FPDatabaseWriter.getDonorList] - Failed to get donor list.");
+            return "Error while retrieving donors.";
         } finally {
             if (preparedStatement != null && !preparedStatement.isClosed()) {
                 preparedStatement.close();

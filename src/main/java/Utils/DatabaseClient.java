@@ -11,14 +11,14 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class DatabaseWriter {
+public class DatabaseClient {
 
     private String dbUser;
     private String dbPassword;
     private String dbHost;
     private String dbDatabase;
 
-    public DatabaseWriter() {
+    public DatabaseClient() {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("config");
         try {
             dbUser = resourceBundle.getString("user");

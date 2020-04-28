@@ -67,7 +67,7 @@ public class NewDonor {
         }
 
         try {
-            FireBot.fpDatabaseWriter.insertDonor(donorAttributes.get(0), donorAttributes.get(1), expirationDate, messageParts[3]);
+            FireBot.fpDatabaseClient.insertDonor(donorAttributes.get(0), donorAttributes.get(1), expirationDate, messageParts[3]);
         } catch (Exception e) {
             e.printStackTrace();
             FireBot.botLogger.logError("[NewDonor.newDonor] - Failed to insert new donor.");

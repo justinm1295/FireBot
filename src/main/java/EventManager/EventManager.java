@@ -3,6 +3,7 @@ package EventManager;
 import Bot.FireBot;
 import Commands.CommandList;
 import Commands.Info;
+import Commands.ListDonors;
 import Commands.MemberCount;
 import Commands.NewDonor;
 import Commands.Ping;
@@ -70,7 +71,7 @@ public class EventManager extends ListenerAdapter {
         }
 
         try {
-            FireBot.databaseWriter.insertMessage(event);
+            FireBot.databaseClient.insertMessage(event);
         } catch (SQLException e) {
             e.printStackTrace();
             FireBot.botLogger.logError("[EventManager.onMessageReceived] - Failed to insert message into database.");
@@ -108,6 +109,10 @@ public class EventManager extends ListenerAdapter {
 
         if (args[0].equals("!newDonor")) {
             NewDonor.newDonor(event);
+        }
+
+        if (args[0].equals("!listDonors")) {
+            ListDonors.listDonors(event);
         }
     }
 }

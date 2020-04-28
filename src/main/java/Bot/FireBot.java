@@ -2,8 +2,8 @@ package Bot;
 
 import EventManager.EventManager;
 import Utils.BotLogger;
-import Utils.DatabaseWriter;
-import Utils.FPDatabaseWriter;
+import Utils.DatabaseClient;
+import Utils.FPDatabaseClient;
 import Utils.ReportMap;
 import Utils.SteamAPIClient;
 import Utils.TF2ServerInterface;
@@ -18,8 +18,8 @@ public class FireBot {
 
     public static JDA jda;
     public static String prefix = "!";
-    public static DatabaseWriter databaseWriter;
-    public static FPDatabaseWriter fpDatabaseWriter;
+    public static DatabaseClient databaseClient;
+    public static FPDatabaseClient fpDatabaseClient;
     public static BotLogger botLogger;
     public static TF2ServerInterface tf2ServerInterface;
     public static ReportMap reportMap;
@@ -42,8 +42,8 @@ public class FireBot {
 
         reportMap = new ReportMap();
         botLogger = new BotLogger();
-        databaseWriter = new DatabaseWriter();
-        fpDatabaseWriter = new FPDatabaseWriter();
+        databaseClient = new DatabaseClient();
+        fpDatabaseClient = new FPDatabaseClient();
         tf2ServerInterface = new TF2ServerInterface();
         steamAPIClient = new SteamAPIClient();
 
