@@ -82,7 +82,7 @@ public class FPDatabaseClient {
         PreparedStatement preparedStatement = null;
         try {
             connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT name, steamid, expires, donation_type FROM Sales");
+            preparedStatement = connection.prepareStatement("SELECT name, steamid, expires, donation_type FROM special_donors");
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.beforeFirst();
             result.append("\n```");
