@@ -80,6 +80,7 @@ public class NewDonor {
 
         donor.addField("SteamID32", donorAttributes.get(0), false);
         donor.addField("Name", donorAttributes.get(1), false);
+        donor.addField("Length", String.format("%s weeks", Integer.parseInt(messageParts[2])), false);
         donor.addField("Expiration Date", Long.toString(expirationDate), false);
         donor.addField("Donation Type", messageParts[3], false);
         donor.addField("Added By", Objects.requireNonNull(event.getMember()).getEffectiveName(), false);
