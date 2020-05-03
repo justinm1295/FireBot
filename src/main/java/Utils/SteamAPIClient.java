@@ -41,7 +41,7 @@ public class SteamAPIClient {
                 return null;
             }
             responseBody = responseBody.getJSONObject("response").getJSONArray("players").getJSONObject(0);
-            result.add(convertId(responseBody.getLong("steamid")));
+            result.add(convertId(Long.parseLong(responseBody.getString("steamid"))));
             result.add(responseBody.getString("personaname"));
             return result;
         } catch (Exception e) {
@@ -53,9 +53,9 @@ public class SteamAPIClient {
 
     public static String convertId(long steamId64) {
         long base = 76561197960265728L;
-        long mod =  steamId64 % 2;
+        long mod = steamId64 % 2;
         long result = steamId64 - mod - base;
 
-        return String.format("Steam_0:%s:%s", mod, result / 2);
+        return String.format("Steam_0:%s:%s", mod, result / 2L);
     }
 }
