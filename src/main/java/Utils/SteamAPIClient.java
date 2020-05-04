@@ -56,6 +56,6 @@ public class SteamAPIClient {
         long mod = steamId64 % 2;
         long result = steamId64 - mod - base;
 
-        return String.format("Steam_0:%s:%s", mod, result / 2L);
+        return String.format("STEAM_0:%s:%s", mod, result / 2L);
     }
 }
