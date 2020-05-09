@@ -13,6 +13,7 @@ import Commands.Server;
 import Commands.Staff;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
@@ -114,5 +115,10 @@ public class EventManager extends ListenerAdapter {
         if (args[0].equals("!listDonors")) {
             ListDonors.listDonors(event);
         }
+    }
+
+    @Override
+    public void onGuildMemberLeave(@Nonnull GuildMemberLeaveEvent event) {
+        FireBot.botLogger.logMessage(String.format("Member %s left the server.", event.getMember().getEffectiveName()));
     }
 }
