@@ -20,7 +20,7 @@ public class FPDatabaseClient {
     private String dbDatabase;
     private int dbPort;
 
-    private DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+    private final DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
 
     public FPDatabaseClient() {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("config");

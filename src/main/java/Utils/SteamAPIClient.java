@@ -12,13 +12,13 @@ import java.util.ResourceBundle;
 
 public class SteamAPIClient {
 
-    String apiKey;
-    String SteamUrl = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/";
+    private String apiKey;
+    private final String SteamUserUrl = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/";
 
     public SteamAPIClient() {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("config");
         try {
-            apiKey = resourceBundle.getString("SteamAPIKey");
+            this.apiKey = resourceBundle.getString("SteamAPIKey");
         } catch (Exception e) {
             e.printStackTrace();
             FireBot.botLogger.logError("[SteamAPIClient] - Cannot get SteamAPIKey.");
@@ -29,7 +29,7 @@ public class SteamAPIClient {
     public ArrayList<String> getSteamInfo(String steamId64) {
         try {
             ArrayList<String> result = new ArrayList<>();
-            URIBuilder uriBuilder = new URIBuilder(SteamUrl);
+            URIBuilder uriBuilder = new URIBuilder(SteamUserUrl);
             uriBuilder.addParameter("key", apiKey);
             uriBuilder.addParameter("steamids", steamId64);
             HttpRequest request = HttpRequest.newBuilder().uri(uriBuilder.build()).build();

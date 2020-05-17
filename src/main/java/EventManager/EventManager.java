@@ -1,16 +1,7 @@
 package EventManager;
 
 import Bot.FireBot;
-import Commands.CommandList;
-import Commands.Info;
-import Commands.ListDonors;
-import Commands.MemberCount;
-import Commands.NewDonor;
-import Commands.Ping;
-import Commands.ReportHelp;
-import Commands.Report;
-import Commands.Server;
-import Commands.Staff;
+import Commands.*;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent;
@@ -114,6 +105,14 @@ public class EventManager extends ListenerAdapter {
 
         if (args[0].equals("!listDonors")) {
             ListDonors.listDonors(event);
+        }
+
+        if (args[0].equals("!restartServer")) {
+            RestartServer.restartServer(event);
+        }
+
+        if (args[0].equals("!reloadAdmins")) {
+            ReloadAdmins.reloadAdmins(event);
         }
     }
 

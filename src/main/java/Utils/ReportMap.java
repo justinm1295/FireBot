@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class ReportMap {
 
-    private HashMap<Long, Long> reports;
+    private final HashMap<Long, Long> reports;
 
     public ReportMap() {
         this.reports = new HashMap<>();
@@ -20,9 +20,5 @@ public class ReportMap {
         } else {
             return 0L;
         }
-    }
-
-    public int getReportSize() {
-        return this.reports.size();
     }
 }

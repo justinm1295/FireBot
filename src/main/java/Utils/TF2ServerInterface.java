@@ -10,13 +10,20 @@ import java.util.ResourceBundle;
 
 public class TF2ServerInterface {
 
-    private String ip;
-    private int port;
+    private final String ip = "66.55.70.58";
+    private final int port = 27015;
     private String authKey;
 
     public TF2ServerInterface() {
-        this.ip = "66.55.70.58";
-        this.port = 27015;
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("config");
+
+        try {
+            authKey = resourceBundle.getString("RCONAuthKey");
+        } catch (Exception e) {
+            e.printStackTrace();
+            FireBot.botLogger.logError("[TF2ServerInterface] - Cannot get RCONAuthKey.");
+            System.exit(0);
+        }
     }
 
     public EmbedBuilder getServerInfo() {
@@ -47,15 +54,6 @@ public class TF2ServerInterface {
     }
 
     public String reloadAdmins() {
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("config");
-
-        try {
-            authKey = resourceBundle.getString("RCONAuthKey");
-        } catch (Exception e) {
-            e.printStackTrace();
-            FireBot.botLogger.logError("[TF2ServerInterface] - Cannot get RCONAuthKey.");
-            return null;
-        }
 
         try {
             SourceServer server = new SourceServer(ip, port);
@@ -66,6 +64,21 @@ public class TF2ServerInterface {
         } catch (Exception e) {
             e.printStackTrace();
             FireBot.botLogger.logError("[TF2ServerInterface.reloadAdmins] - Error reloading admins.");
+        }
+
+        return null;
+    }
+
+    public String restartServer() {
+        try {
+            SourceServer server = new SourceServer(ip, port);
+            server.rconAuth(authKey);
+            String result = server.rconExec("_restart");
+            server.disconnect();
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            FireBot.botLogger.logError("[TF2ServerInterface.restartServer] - Error restarting server.");
         }
 
         return null;
