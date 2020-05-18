@@ -118,6 +118,14 @@ public class EventManager extends ListenerAdapter {
         if (args[0].equals("!getServerAdmins")) {
             GetServerAdmins.getServerAdmins(event);
         }
+
+        if (args[0].equals("!getPlayerList")) {
+            GetPlayerList.getPlayerList(event);
+        }
+
+        if (args[0].equals("!makeAnnouncement")) {
+            MakeAnnouncement.makeAnnouncement(event);
+        }
     }
 
     @Override

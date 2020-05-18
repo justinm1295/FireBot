@@ -1,6 +1,7 @@
 package Utils;
 
 import Bot.FireBot;
+import com.github.koraktor.steamcondenser.steam.SteamPlayer;
 import com.github.koraktor.steamcondenser.steam.servers.SourceServer;
 import net.dv8tion.jda.api.EmbedBuilder;
 
@@ -94,6 +95,41 @@ public class TF2ServerInterface {
         } catch (Exception e) {
             e.printStackTrace();
             FireBot.botLogger.logError("[TF2ServerInterface.getServerAdmins] - Error getting server admins.");
+        }
+
+        return null;
+    }
+
+    public String makeAnnouncement(String message) {
+        try {
+            SourceServer server = new SourceServer(ip, port);
+            server.rconAuth(authKey);
+            String result = server.rconExec(String.format("sm_csay %s", message));
+            server.disconnect();
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            FireBot.botLogger.logError("[TF2ServerInterface.makeAnnouncement] - Error making announcement.");
+        }
+
+        return null;
+    }
+
+    public String getPlayerList() {
+        try {
+            SourceServer server = new SourceServer(ip, port);
+            server.rconAuth(authKey);
+            HashMap<String, SteamPlayer> result = server.getPlayers();
+            server.disconnect();
+            StringBuilder stringBuilder = new StringBuilder("Name\tSteamId");
+            for (String key : result.keySet()) {
+                SteamPlayer player = result.get(key);
+                stringBuilder.append(String.format("\n%s\t%s", player.getName(), player.getSteamId()));
+            }
+            return stringBuilder.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            FireBot.botLogger.logError("[TF2ServerInterface.getPlayerList] - Error getting players.");
         }
 
         return null;
