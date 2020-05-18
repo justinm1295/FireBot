@@ -29,6 +29,6 @@ public class GetPlayerList {
 
         String playerList = FireBot.tf2ServerInterface.getPlayerList();
 
-        event.getChannel().sendMessage(String.format("```%s```", playerList)).queue();
+        event.getChannel().sendMessage(String.format("```Name\tSteamId```\n```%s```", playerList)).queue();
     }
 }

@@ -121,7 +121,7 @@ public class TF2ServerInterface {
             server.rconAuth(authKey);
             HashMap<String, SteamPlayer> result = server.getPlayers();
             server.disconnect();
-            StringBuilder stringBuilder = new StringBuilder("Name\tSteamId");
+            StringBuilder stringBuilder = new StringBuilder();
             for (String key : result.keySet()) {
                 SteamPlayer player = result.get(key);
                 stringBuilder.append(String.format("\n%s\t%s", player.getName(), player.getSteamId()));
