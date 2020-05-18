@@ -27,7 +27,7 @@ public class MakeAnnouncement {
             FireBot.botLogger.logError("[ReloadAdmins.reloadAdmins] - Failed to reload admin cache.");
         }
 
-        String message = event.getMessage().getContentRaw().split("\\s+")[1];
+        String message = event.getMessage().getContentRaw().split("!makeAnnouncement ")[1];
 
         String announcement = FireBot.tf2ServerInterface.makeAnnouncement(message);
 
