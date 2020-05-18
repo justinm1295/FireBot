@@ -104,7 +104,7 @@ public class TF2ServerInterface {
         try {
             SourceServer server = new SourceServer(ip, port);
             server.rconAuth(authKey);
-            String result = server.rconExec(String.format("sm_csay %s", message));
+            String result = server.rconExec(String.format("sm_csay \"%s\"", message));
             server.disconnect();
             return result;
         } catch (Exception e) {
