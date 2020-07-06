@@ -38,16 +38,13 @@ public class RestartServer {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                FireBot.tf2ServerInterface.makeAnnouncement("The server will restart in 30 seconds. The restart process will take approximately 1 minute.");
-                String restart = FireBot.tf2ServerInterface.restartServer();
-
-                event.getChannel().sendMessage(String.format("```%s```", restart)).queue();
+                FireBot.tf2ServerInterface.restartServer();
             }
         };
 
         Timer timer = new Timer();
         timer.schedule(timerTask, 30000);
         event.getChannel().sendMessage("Server will restart in 30 seconds. Making server announcement.").queue();
-
+        FireBot.tf2ServerInterface.makeAnnouncement("The server will restart in 30 seconds. The restart process will take approximately 1 minute.");
     }
 }
