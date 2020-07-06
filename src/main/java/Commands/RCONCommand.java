@@ -29,7 +29,7 @@ public class RCONCommand {
 
         String command = event.getMessage().getContentRaw().split("!rcon ")[1];
 
-        String commandResult = FireBot.tf2ServerInterface.makeAnnouncement(command);
+        String commandResult = FireBot.tf2ServerInterface.rconCommand(command);
 
         event.getChannel().sendMessage(String.format("```%s```", commandResult)).queue();
     }
