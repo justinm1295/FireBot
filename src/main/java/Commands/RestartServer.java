@@ -5,6 +5,8 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class RestartServer {
 
@@ -33,8 +35,19 @@ public class RestartServer {
             FireBot.botLogger.logError("[RestartServer.restartServer] - Failed to restart server.");
         }
 
-        String restart = FireBot.tf2ServerInterface.restartServer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                FireBot.tf2ServerInterface.makeAnnouncement("The server will restart in 30 seconds. The restart process will take approximately 1 minute.");
+                String restart = FireBot.tf2ServerInterface.restartServer();
 
-        event.getChannel().sendMessage(String.format("```%s```", restart)).queue();
+                event.getChannel().sendMessage(String.format("```%s```", restart)).queue();
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.schedule(timerTask, 30000);
+        event.getChannel().sendMessage("Server will restart in 30 seconds. Making server announcement.").queue();
+
     }
 }
