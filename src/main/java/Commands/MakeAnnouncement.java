@@ -24,7 +24,7 @@ public class MakeAnnouncement {
             }
         } catch (NullPointerException npe) {
             npe.printStackTrace();
-            FireBot.botLogger.logError("[ReloadAdmins.reloadAdmins] - Failed to reload admin cache.");
+            FireBot.botLogger.logError("[MakeAnnouncement.makeAnnouncement] - Failed to make announcement.");
         }
 
         String message = event.getMessage().getContentRaw().split("!makeAnnouncement ")[1];

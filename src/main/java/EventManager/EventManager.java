@@ -126,6 +126,10 @@ public class EventManager extends ListenerAdapter {
         if (args[0].equals("!makeAnnouncement")) {
             MakeAnnouncement.makeAnnouncement(event);
         }
+
+        if (args[0].equals("!rcon")) {
+            RCONCommand.executeRconCommand(event);
+        }
     }
 
     @Override

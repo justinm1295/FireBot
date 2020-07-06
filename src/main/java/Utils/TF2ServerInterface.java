@@ -134,4 +134,19 @@ public class TF2ServerInterface {
 
         return null;
     }
+
+    public String rconCommand(String command) {
+        try {
+            SourceServer server = new SourceServer(ip, port);
+            server.rconAuth(authKey);
+            String result = server.rconExec(command);
+            server.disconnect();
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            FireBot.botLogger.logError("[TF2ServerInterface.rconCommand] - Error executing rcon command.");
+        }
+
+        return null;
+    }
 }
