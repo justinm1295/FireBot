@@ -3,6 +3,7 @@ package EventManager;
 import Bot.FireBot;
 import Commands.*;
 import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -60,6 +61,10 @@ public class EventManager extends ListenerAdapter {
 
         if (message.getAuthor().isBot()) {
             return;
+        }
+
+        if (FireBot.randomGenerator.nextInt(100) == 50) {
+            event.getMessage().addReaction("🔥").queue();
         }
 
         try {
