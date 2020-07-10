@@ -10,8 +10,10 @@ import Utils.TF2ServerInterface;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Emote;
 
 import javax.security.auth.login.LoginException;
+import java.util.Objects;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -26,6 +28,7 @@ public class FireBot {
     public static ReportMap reportMap;
     public static SteamAPIClient steamAPIClient;
     public static Random randomGenerator;
+    public static Emote FPEmote;
 
     public static void main(String[] args) throws LoginException, InterruptedException {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("config");
@@ -49,7 +52,17 @@ public class FireBot {
         tf2ServerInterface = new TF2ServerInterface();
         steamAPIClient = new SteamAPIClient();
         randomGenerator = new Random();
+        getFPEmote();
 
         botLogger.logMessage("[FireBot.main] - New bot session started.");
+    }
+
+    private static void getFPEmote() {
+        try {
+            FPEmote = Objects.requireNonNull(FireBot.jda.getGuildsByName("FirePowered Gaming", false).get(0).getEmotesByName("FP", false).get(0));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Couldn't find FP emote.");
+        }
     }
 }

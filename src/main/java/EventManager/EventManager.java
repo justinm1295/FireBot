@@ -67,6 +67,10 @@ public class EventManager extends ListenerAdapter {
             event.getMessage().addReaction("🔥").queue();
         }
 
+        if (FireBot.randomGenerator.nextInt(1000) == 500 && FireBot.FPEmote != null) {
+            event.getMessage().addReaction(FireBot.FPEmote).queue();
+        }
+
         try {
             FireBot.databaseClient.insertMessage(event);
         } catch (SQLException e) {
