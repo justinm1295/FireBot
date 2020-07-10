@@ -130,6 +130,18 @@ public class EventManager extends ListenerAdapter {
         if (args[0].equals("!rcon")) {
             RCONCommand.executeRconCommand(event);
         }
+
+        if (args[0].equals("!loadPlugin")) {
+            LoadPlugin.loadPlugin(event);
+        }
+
+        if (args[0].equals("!unloadPlugin")) {
+            UnloadPlugin.unloadPlugin(event);
+        }
+
+        if (args[0].equals("!pluginInfo")) {
+            PluginInfo.pluginInfo(event);
+        }
     }
 
     @Override
