@@ -165,4 +165,49 @@ public class TF2ServerInterface {
 
         return null;
     }
+
+    public String pluginInfo(String plugin) {
+        try {
+            SourceServer server = new SourceServer(ip, port);
+            server.rconAuth(authKey);
+            String result = server.rconExec(String.format("sm plugins info %s", plugin));
+            server.disconnect();
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            FireBot.botLogger.logError("[TF2ServerInterface.pluginInfo] - Error executing rcon command.");
+        }
+
+        return null;
+    }
+
+    public String loadPlugin(String plugin) {
+        try {
+            SourceServer server = new SourceServer(ip, port);
+            server.rconAuth(authKey);
+            String result = server.rconExec(String.format("sm plugins load %s", plugin));
+            server.disconnect();
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            FireBot.botLogger.logError("[TF2ServerInterface.loadPlugin] - Error executing rcon command.");
+        }
+
+        return null;
+    }
+
+    public String unloadPlugin(String plugin) {
+        try {
+            SourceServer server = new SourceServer(ip, port);
+            server.rconAuth(authKey);
+            String result = server.rconExec(String.format("sm plugins unload %s", plugin));
+            server.disconnect();
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            FireBot.botLogger.logError("[TF2ServerInterface.unloadPlugin] - Error executing rcon command.");
+        }
+
+        return null;
+    }
 }

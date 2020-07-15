@@ -3,6 +3,7 @@ package EventManager;
 import Bot.FireBot;
 import Commands.*;
 import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -60,6 +61,14 @@ public class EventManager extends ListenerAdapter {
 
         if (message.getAuthor().isBot()) {
             return;
+        }
+
+        if (FireBot.randomGenerator.nextInt(100) == 50) {
+            event.getMessage().addReaction("🔥").queue();
+        }
+
+        if (FireBot.randomGenerator.nextInt(1000) == 500 && FireBot.FPEmote != null) {
+            event.getMessage().addReaction(FireBot.FPEmote).queue();
         }
 
         try {
@@ -129,6 +138,18 @@ public class EventManager extends ListenerAdapter {
 
         if (args[0].equals("!rcon")) {
             RCONCommand.executeRconCommand(event);
+        }
+
+        if (args[0].equals("!loadPlugin")) {
+            LoadPlugin.loadPlugin(event);
+        }
+
+        if (args[0].equals("!unloadPlugin")) {
+            UnloadPlugin.unloadPlugin(event);
+        }
+
+        if (args[0].equals("!pluginInfo")) {
+            PluginInfo.pluginInfo(event);
         }
     }
 
