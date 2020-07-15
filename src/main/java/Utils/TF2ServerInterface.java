@@ -70,6 +70,22 @@ public class TF2ServerInterface {
         return null;
     }
 
+    public String reloadAccess() {
+
+        try {
+            SourceServer server = new SourceServer(ip, port);
+            server.rconAuth(authKey);
+            String result = server.rconExec("sm_reloadaccess");
+            server.disconnect();
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            FireBot.botLogger.logError("[TF2ServerInterface.reloadAccess] - Error reloading access.");
+        }
+
+        return null;
+    }
+
     public String restartServer() {
         try {
             SourceServer server = new SourceServer(ip, port);

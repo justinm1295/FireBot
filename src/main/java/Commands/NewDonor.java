@@ -85,7 +85,7 @@ public class NewDonor {
         donor.addField("Donation Type", messageParts[3], false);
         donor.addField("Added By", Objects.requireNonNull(event.getMember()).getEffectiveName(), false);
 
-        String reload = FireBot.tf2ServerInterface.reloadAdmins();
+        String reload = FireBot.tf2ServerInterface.reloadAccess();
 
         event.getChannel().sendTyping().complete();
         event.getChannel().sendMessage(donor.build()).queue();
