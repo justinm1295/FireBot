@@ -29,7 +29,7 @@ public class UnloadPlugin {
 
         String plugin = event.getMessage().getContentRaw().split("!unloadPlugin ")[1];
 
-        String commandResult = FireBot.tf2ServerInterface.loadPlugin(plugin);
+        String commandResult = FireBot.tf2ServerInterface.unloadPlugin(plugin);
 
         event.getChannel().sendMessage(String.format("```%s```", commandResult)).queue();
     }
