@@ -83,7 +83,7 @@ public class NewDonor {
         donor.addField("Length", Integer.parseInt(messageParts[2]) == 0 ? "Permanent" : String.format("%s weeks", Integer.parseInt(messageParts[2])), false);
         donor.addField("Expiration Date", Long.toString(expirationDate), false);
         donor.addField("Donation Type", messageParts[3], false);
-        donor.addField("Tier?", Integer.parseInt(messageParts[4]) == 1 ? "VIP+" : "VIP", false);
+        donor.addField("Tier", Integer.parseInt(messageParts[4]) == 1 ? "VIP+" : "VIP", false);
         donor.addField("Added By", Objects.requireNonNull(event.getMember()).getEffectiveName(), false);
 
         String reload = FireBot.tf2ServerInterface.reloadAccess();
