@@ -32,7 +32,7 @@ public class RCONCommand {
         String commandResult = FireBot.tf2ServerInterface.rconCommand(command);
 
         for (int i = 0; i < commandResult.length(); i += 1900) {
-            event.getChannel().sendMessage(String.format("```%s```", commandResult.substring(i, commandResult.length() - i <= 1900? commandResult.length() : i + 1900))).queue();
+            event.getChannel().sendMessage(String.format("```%s```", commandResult.substring(i, commandResult.length() - i <= 1900? commandResult.length() : i + 1901))).queue();
         }
     }
 }
