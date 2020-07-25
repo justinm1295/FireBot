@@ -29,7 +29,7 @@ public class PluginInfo {
 
         String plugin = event.getMessage().getContentRaw().split("!pluginInfo ")[1];
 
-        String commandResult = FireBot.tf2ServerInterface.loadPlugin(plugin);
+        String commandResult = FireBot.tf2ServerInterface.pluginInfo(plugin);
 
         event.getChannel().sendMessage(String.format("```%s```", commandResult)).queue();
     }

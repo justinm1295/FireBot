@@ -15,7 +15,7 @@ public class NewDonor {
 
     public static void newDonor(MessageReceivedEvent event) {
         String formatMessage = "Please adhere to the correct donor syntax:" +
-                "\n```!newDonor | SteamId64 | Length(weeks), 0 for perma | Type```";
+                "\n```!newDonor | SteamId64 | Length(weeks), 0 for perma | Type | Plus(0/1)```";
 
         Role headAdmin = null;
         for (Role role : event.getGuild().getRoles()) {
@@ -40,7 +40,7 @@ public class NewDonor {
 
         String[] messageParts = event.getMessage().getContentRaw().split(" \\| ");
 
-        if (messageParts.length != 4) {
+        if (messageParts.length != 5) {
             event.getChannel().sendTyping().complete();
             event.getChannel().sendMessage(formatMessage).queue();
             return;
@@ -67,7 +67,7 @@ public class NewDonor {
         }
 
         try {
-            FireBot.fpDatabaseClient.insertDonor(donorAttributes.get(0), donorAttributes.get(1), expirationDate, messageParts[3]);
+            FireBot.fpDatabaseClient.insertDonor(donorAttributes.get(0), donorAttributes.get(1), expirationDate, messageParts[3], Integer.parseInt(messageParts[4]));
         } catch (Exception e) {
             e.printStackTrace();
             FireBot.botLogger.logError("[NewDonor.newDonor] - Failed to insert new donor.");
@@ -80,9 +80,10 @@ public class NewDonor {
 
         donor.addField("SteamID32", donorAttributes.get(0), false);
         donor.addField("Name", donorAttributes.get(1), false);
-        donor.addField("Length", String.format("%s weeks", Integer.parseInt(messageParts[2])), false);
+        donor.addField("Length", Integer.parseInt(messageParts[2]) == 0 ? "Permanent" : String.format("%s weeks", Integer.parseInt(messageParts[2])), false);
         donor.addField("Expiration Date", Long.toString(expirationDate), false);
         donor.addField("Donation Type", messageParts[3], false);
+        donor.addField("VIP+?", messageParts[4], false);
         donor.addField("Added By", Objects.requireNonNull(event.getMember()).getEffectiveName(), false);
 
         String reload = FireBot.tf2ServerInterface.reloadAccess();

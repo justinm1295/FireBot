@@ -124,6 +124,10 @@ public class EventManager extends ListenerAdapter {
             ReloadAdmins.reloadAdmins(event);
         }
 
+        if (args[0].equals("!reloadAccess")) {
+            ReloadAccess.reloadAccess(event);
+        }
+
         if (args[0].equals("!getServerAdmins")) {
             GetServerAdmins.getServerAdmins(event);
         }

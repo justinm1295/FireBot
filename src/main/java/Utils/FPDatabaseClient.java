@@ -37,7 +37,7 @@ public class FPDatabaseClient {
         }
     }
 
-    public void insertDonor(String steamId32, String name, long expirationDate, String type) throws SQLException {
+    public void insertDonor(String steamId32, String name, long expirationDate, String type, int plus) throws SQLException {
         MysqlDataSource dataSource = new MysqlDataSource();
         dataSource.setUser(dbUser);
         dataSource.setPassword(dbPassword);
@@ -49,11 +49,12 @@ public class FPDatabaseClient {
         PreparedStatement preparedStatement = null;
         try {
             connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO special_donors (steamid, name, expires, donation_type) VALUES (?, ?, ?, ?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO special_donors (steamid, name, expires, donation_type, plus) VALUES (?, ?, ?, ?, ?)");
             preparedStatement.setString(1, steamId32);
             preparedStatement.setString(2, name);
             preparedStatement.setLong(3, expirationDate);
             preparedStatement.setString(4, type);
+            preparedStatement.setInt(5, plus);
 
             preparedStatement.executeUpdate();
         } catch (Exception e) {
@@ -76,13 +77,13 @@ public class FPDatabaseClient {
         dataSource.setServerName(dbHost);
         dataSource.setDatabaseName(dbDatabase);
 
-        StringBuilder result = new StringBuilder("```Name\tSteamID32\tExpiration Date\tType```");
+        StringBuilder result = new StringBuilder("```Name\tSteamID32\tExpiration Date\tType\tPlus```");
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT name, steamid, expires, donation_type FROM special_donors");
+            preparedStatement = connection.prepareStatement("SELECT name, steamid, expires, donation_type, plus FROM special_donors");
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.beforeFirst();
             result.append("\n```");
@@ -92,7 +93,8 @@ public class FPDatabaseClient {
                 String steamId = resultSet.getString("steamid");
                 String expirationDate = dateFormat.format(date);
                 String donationType = resultSet.getString("donation_type");
-                result.append(String.format("\n%s\t%s\t%s\t%s", name, steamId, expirationDate, donationType));
+                String plus = String.valueOf(resultSet.getInt("plus"));
+                result.append(String.format("\n%s\t%s\t%s\t%s\t%s", name, steamId, expirationDate, donationType, plus));
             }
             result.append("```");
             return result.toString();
