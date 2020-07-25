@@ -37,7 +37,7 @@ public class FPDatabaseClient {
         }
     }
 
-    public void insertDonor(String steamId32, String name, long expirationDate, String type, int plus) throws SQLException {
+    public void insertDonor(long steamId32, String name, long expirationDate, String type, int plus) throws SQLException {
         MysqlDataSource dataSource = new MysqlDataSource();
         dataSource.setUser(dbUser);
         dataSource.setPassword(dbPassword);
@@ -50,7 +50,7 @@ public class FPDatabaseClient {
         try {
             connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO special_donors (steamid, name, expires, donation_type, plus) VALUES (?, ?, ?, ?, ?)");
-            preparedStatement.setString(1, steamId32);
+            preparedStatement.setLong(1, steamId32);
             preparedStatement.setString(2, name);
             preparedStatement.setLong(3, expirationDate);
             preparedStatement.setString(4, type);

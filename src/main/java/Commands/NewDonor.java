@@ -67,7 +67,7 @@ public class NewDonor {
         }
 
         try {
-            FireBot.fpDatabaseClient.insertDonor(donorAttributes.get(0), donorAttributes.get(1), expirationDate, messageParts[3], Integer.parseInt(messageParts[4]));
+            FireBot.fpDatabaseClient.insertDonor(Long.parseLong(donorAttributes.get(0)), donorAttributes.get(1), expirationDate, messageParts[3], Integer.parseInt(messageParts[4]));
         } catch (Exception e) {
             e.printStackTrace();
             FireBot.botLogger.logError("[NewDonor.newDonor] - Failed to insert new donor.");
@@ -86,11 +86,7 @@ public class NewDonor {
         donor.addField("Tier", Integer.parseInt(messageParts[4]) == 1 ? "VIP+" : "VIP", false);
         donor.addField("Added By", Objects.requireNonNull(event.getMember()).getEffectiveName(), false);
 
-        String reload = FireBot.tf2ServerInterface.reloadAccess();
-
         event.getChannel().sendTyping().complete();
         event.getChannel().sendMessage(donor.build()).queue();
-
-        event.getChannel().sendMessage(String.format("```%s```", reload)).queue();
     }
 }

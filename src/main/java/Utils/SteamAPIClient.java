@@ -41,7 +41,7 @@ public class SteamAPIClient {
                 return null;
             }
             responseBody = responseBody.getJSONObject("response").getJSONArray("players").getJSONObject(0);
-            result.add(convertId(Long.parseLong(responseBody.getString("steamid"))));
+            result.add(responseBody.getString("steamid"));
             result.add(responseBody.getString("personaname"));
             return result;
         } catch (Exception e) {
