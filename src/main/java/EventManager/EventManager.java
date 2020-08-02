@@ -151,6 +151,10 @@ public class EventManager extends ListenerAdapter {
         if (args[0].equals("!pluginInfo")) {
             PluginInfo.pluginInfo(event);
         }
+
+        if (args[0].equals("!reloadPlugin")) {
+            ReloadPlugin.reloadPlugin(event);
+        }
     }
 
     @Override

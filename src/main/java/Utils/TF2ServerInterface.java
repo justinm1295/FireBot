@@ -194,4 +194,19 @@ public class TF2ServerInterface {
 
         return null;
     }
+
+    public String reloadPlugin(String plugin) {
+        try {
+            SourceServer server = new SourceServer(ip, port);
+            server.rconAuth(authKey);
+            String result = server.rconExec(String.format("sm plugins reload %s", plugin));
+            server.disconnect();
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            FireBot.botLogger.logError("[TF2ServerInterface.reloadPlugin] - Error executing rcon command.");
+        }
+
+        return null;
+    }
 }
