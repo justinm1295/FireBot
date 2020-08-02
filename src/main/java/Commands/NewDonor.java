@@ -35,7 +35,7 @@ public class NewDonor {
             FireBot.botLogger.logError("[NewDonor.newDonor] - Failed to check member's roles for the Head Administrators role.");
         }
 
-        // steamid, name, expires, donation_type
+        // steamid, name, expires, donation_type, plus
         ArrayList<String> donorAttributes;
 
         String[] messageParts = event.getMessage().getContentRaw().split(" \\| ");
@@ -83,7 +83,7 @@ public class NewDonor {
         donor.addField("Length", Integer.parseInt(messageParts[2]) == 0 ? "Permanent" : String.format("%s weeks", Integer.parseInt(messageParts[2])), false);
         donor.addField("Expiration Date", Long.toString(expirationDate), false);
         donor.addField("Donation Type", messageParts[3], false);
-        donor.addField("Tier", Integer.parseInt(messageParts[4]) == 1 ? "VIP+" : "VIP", false);
+        donor.addField("Tier", Integer.parseInt(messageParts[4]) == 1 ? "Donor+" : "Donor", false);
         donor.addField("Added By", Objects.requireNonNull(event.getMember()).getEffectiveName(), false);
 
         event.getChannel().sendTyping().complete();
