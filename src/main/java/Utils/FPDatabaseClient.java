@@ -37,7 +37,7 @@ public class FPDatabaseClient {
         }
     }
 
-    public void insertDonor(long steamId32, String name, long expirationDate, String type, int plus) throws SQLException {
+    public void insertDonor(long steamId64, String name, long expirationDate, String type, int plus) throws SQLException {
         MysqlDataSource dataSource = new MysqlDataSource();
         dataSource.setUser(dbUser);
         dataSource.setPassword(dbPassword);
@@ -50,7 +50,7 @@ public class FPDatabaseClient {
         try {
             connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO special_donors (steamid, name, expires, donation_type, plus) VALUES (?, ?, ?, ?, ?)");
-            preparedStatement.setLong(1, steamId32);
+            preparedStatement.setLong(1, steamId64);
             preparedStatement.setString(2, name);
             preparedStatement.setLong(3, expirationDate);
             preparedStatement.setString(4, type);
@@ -60,6 +60,35 @@ public class FPDatabaseClient {
         } catch (Exception e) {
             e.printStackTrace();
             FireBot.botLogger.logError("[FPDatabaseWriter.insertDonor] - Failed to insert donor.");
+        } finally {
+            if (preparedStatement != null && !preparedStatement.isClosed()) {
+                preparedStatement.close();
+            }
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        }
+    }
+
+    public void removeDonor(Long steamId64) throws SQLException {
+        MysqlDataSource dataSource = new MysqlDataSource();
+        dataSource.setUser(dbUser);
+        dataSource.setPassword(dbPassword);
+        dataSource.setServerName(dbHost);
+        dataSource.setDatabaseName(dbDatabase);
+        dataSource.setPort(dbPort);
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM special_donors WHERE steamid = ?");
+            preparedStatement.setLong(1, steamId64);
+
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            FireBot.botLogger.logError("[FPDatabaseWriter.removeDonor] - Failed to remove donor.");
         } finally {
             if (preparedStatement != null && !preparedStatement.isClosed()) {
                 preparedStatement.close();
