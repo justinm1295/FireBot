@@ -27,9 +27,9 @@ public class RemoveDonor {
             FireBot.botLogger.logError("[RemoveDonor.removeDonor] - Failed to check member's roles for the Head Administrators role.");
         }
 
-        String[] messageParts = event.getMessage().getContentRaw().split("!removeDonors ");
+        String[] messageParts = event.getMessage().getContentRaw().split("!removeDonor ");
 
-        if (messageParts.length != 1) {
+        if (messageParts.length != 2) {
             event.getChannel().sendTyping().complete();
             event.getChannel().sendMessage("Please provide the SteamID64 to delete.").queue();
             return;
