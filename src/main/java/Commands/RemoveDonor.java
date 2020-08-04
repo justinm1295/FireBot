@@ -40,6 +40,9 @@ public class RemoveDonor {
         } catch (Exception e) {
             e.printStackTrace();
             FireBot.botLogger.logError("[RemoveDonor.removeDonor] - Failed to remove donor.");
+            return;
         }
+
+        event.getChannel().sendMessage("Removed donor.").queue();
     }
 }
