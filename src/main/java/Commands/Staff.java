@@ -14,7 +14,7 @@ public class Staff {
         List<Member> seniorAdmins = event.getGuild().getMembersWithRoles(event.getGuild().getRolesByName("Senior Administrators", false));
         List<Member> admins = event.getGuild().getMembersWithRoles(event.getGuild().getRolesByName("Administrators", false));
         List<Member> mods = event.getGuild().getMembersWithRoles(event.getGuild().getRolesByName("Moderators", false));
-        List<Member> tradeMods = event.getGuild().getMembersWithRoles(event.getGuild().getRolesByName("Trade Server Moderators", false));
+        List<Member> trialMods = event.getGuild().getMembersWithRoles(event.getGuild().getRolesByName("Trial Moderators", false));
 
         EmbedBuilder staff = new EmbedBuilder();
         staff.setTitle("FirePowered Staff");
@@ -46,10 +46,10 @@ public class Staff {
         staff.addField("Moderators", stringBuilder.toString(), false);
 
         stringBuilder.setLength(0);
-        for (Member member : tradeMods) {
+        for (Member member : trialMods) {
             stringBuilder.append(String.format("%s\n", member.getEffectiveName()));
         }
-        staff.addField("Trade Server Moderators", stringBuilder.toString(), false);
+        staff.addField("Trial Moderators", stringBuilder.toString(), false);
 
         event.getChannel().sendMessage(staff.build()).queue();
         staff.clear();
