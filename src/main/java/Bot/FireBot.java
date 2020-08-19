@@ -1,12 +1,7 @@
 package Bot;
 
 import EventManager.EventManager;
-import Utils.BotLogger;
-import Utils.DatabaseClient;
-import Utils.FPDatabaseClient;
-import Utils.ReportMap;
-import Utils.SteamAPIClient;
-import Utils.TF2ServerInterface;
+import Utils.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -27,6 +22,7 @@ public class FireBot {
     public static TF2ServerInterface tf2ServerInterface;
     public static ReportMap reportMap;
     public static SteamAPIClient steamAPIClient;
+    public static MessageCache messageCache;
     public static Random randomGenerator;
     public static Emote FPEmote;
 
@@ -51,6 +47,7 @@ public class FireBot {
         fpDatabaseClient = new FPDatabaseClient();
         tf2ServerInterface = new TF2ServerInterface();
         steamAPIClient = new SteamAPIClient();
+        messageCache = new MessageCache(4096);
         randomGenerator = new Random();
         getFPEmote();
 

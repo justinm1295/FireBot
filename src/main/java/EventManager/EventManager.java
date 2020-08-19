@@ -3,10 +3,11 @@ package EventManager;
 import Bot.FireBot;
 import Commands.*;
 import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageDeleteEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageUpdateEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -17,6 +18,20 @@ import java.sql.SQLException;
 
 public class EventManager extends ListenerAdapter {
 
+
+    @Override
+    public void onGuildMessageUpdate(@Nonnull GuildMessageUpdateEvent event) {
+        if (FireBot.messageCache.getUpdatedMessage(event) != null) {
+            FireBot.botLogger.logMessageUpdate(FireBot.messageCache.getUpdatedMessage(event));
+        }
+    }
+
+    @Override
+    public void onGuildMessageDelete(@Nonnull GuildMessageDeleteEvent event) {
+        if (FireBot.messageCache.getDeletedMessage(event) != null) {
+            FireBot.botLogger.logMessageDelete(FireBot.messageCache.getDeletedMessage(event));
+        }
+    }
 
     @Override
     public void onGuildMessageReactionAdd(@Nonnull GuildMessageReactionAddEvent event) {

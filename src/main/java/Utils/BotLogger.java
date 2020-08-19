@@ -34,4 +34,22 @@ public class BotLogger {
             System.out.println("Couldn't find logging channel.");
         }
     }
+
+    public void logMessageUpdate(String message) {
+        try {
+            Objects.requireNonNull(FireBot.jda.getTextChannelById(botLogChannel)).sendMessage(message).queue();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Couldn't find logging channel.");
+        }
+    }
+
+    public void logMessageDelete(String message) {
+        try {
+            Objects.requireNonNull(FireBot.jda.getTextChannelById(botLogChannel)).sendMessage(message).queue();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Couldn't find logging channel.");
+        }
+    }
 }
